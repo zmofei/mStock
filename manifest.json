@@ -19,5 +19,4 @@
         "scripts":["background.js"],
         "persistent":false
     }
-    
 }
