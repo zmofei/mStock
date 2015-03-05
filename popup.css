@@ -1,0 +1,42 @@
+table {
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+table th {
+    background: #ddd;
+    border: 1px solid #ccc;
+}
+table td, table th {
+    padding: 3px 15px;
+    line-height: 1.6em;
+    border: none;
+    border-bottom: 1px solid #f4f4f4;
+}
+.up {
+    color: red;
+}
+.down {
+    color: green;
+}
+.addbar {
+    padding: 5px;
+}
+.addbar input {
+    width: 60px;
+}
+.suggestBar {
+    border: 1px solid #ddd;
+}
+.suggestBar p {
+	cursor: pointer;
+    padding: 5px;
+    margin: 0; 
+    overflow: hidden;
+    border-bottom: 1px dotted #ccc;
+}
+
+.action {text-align: right;}
+.action a { padding:10px 5px; display: inline-block;}

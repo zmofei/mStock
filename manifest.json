@@ -1,9 +1,8 @@
 {
-    "manifest_version":"0.0.0.1",
+    "manifest_version":2,
     "name":"mStock",
     "version":"0.0.0.1",
 
-    "default_locale":"en",
     "description":"A quick look for your stock",
     
     "browser_action":{
@@ -11,12 +10,11 @@
         "default_title":"mStock",
         "default_popup":"popup.html"
     },
-    "page_action":{},
 
-    "author":"<Mofei Zhu>13761509829@163.com",
+    "permissions":[
+        "http://hq.sinajs.cn/",
+        "http://suggest3.sinajs.cn/"
+    ],
     
-    "background":{
-        "scripts":["background.js"],
-        "persistent":false
-    }
+    "author":"<Mofei Zhu>13761509829@163.com"
 }

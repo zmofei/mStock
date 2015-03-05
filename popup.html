@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Popup</title>
+    <link href="popup.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="addbar">
+        <input type="text" id="stockCode" placeholder="股票代码" name="code">
+        <input type="number" placeholder="持有数量" name="count">
+        <input type="number" placeholder="成本" name="cost">
+        <button id="addnew">提交</button>
+        <div class="suggestBar"></div>
+    </div>
+    <table valign="middle" id="mainArae">
+        <tr>
+            <th>市值</th>
+            <th>持有</th>
+            <th>当日盈亏</th>
+            <th>成本/市值</th>
+        </tr>
+    </table>
+    <div class="action">
+        <a href="#">添加</a><a href="#">修改</a>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
