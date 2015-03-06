@@ -112,16 +112,6 @@ var showData = (function() {
                         newObj[ids[i]].yesterday = rests[2];
                     }
 
-
-                    // console.log(stocksInfo.idStr, '@@', retData)
-
-                    // for (var i in newObj) {
-                    // var name = (newObj[i].name).toUpperCase();
-                    // 
-                    // newObj[i].price = retData[name].price;
-                    // newObj[i].yesterday = retData[name].yesterday;
-                    // }
-
                     showIt(newObj)
                 }
             });

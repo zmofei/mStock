@@ -11,6 +11,11 @@
         "default_popup":"popup.html"
     },
 
+    "background":{
+        "scripts":["background.js"],
+        "persistent":true
+    },
+
     "permissions":[
         "http://hq.sinajs.cn/",
         "http://suggest3.sinajs.cn/"
