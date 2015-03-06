@@ -1,13 +1,21 @@
+body { padding:15px; font-size: 12px; min-width: 300px; }
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	vertical-align: middle;
+}
 table {
     white-space: nowrap;
-    vertical-align: middle;
+    text-align: center;
+    
+ /*   vertical-align: middle;
     text-align: center;
     table-layout: fixed;
-    border-collapse: collapse;
+    border-collapse: collapse;*/
 }
 table th {
-    background: #ddd;
-    border: 1px solid #ccc;
+	text-align: center;
+    /*background: #ddd;*/
+    /*border: 1px solid #ccc;*/
 }
 table td, table th {
     padding: 3px 15px;
@@ -23,10 +31,11 @@ table td, table th {
 }
 .addbar {
     padding: 5px;
+    min-width: 300px;
+    min-height: 300px;
+    border-top: 1px dotted #ccc;
 }
-.addbar input {
-    width: 60px;
-}
+
 .suggestBar {
     border: 1px solid #ddd;
 }
@@ -40,3 +49,7 @@ table td, table th {
 
 .action {text-align: right;}
 .action a { padding:10px 5px; display: inline-block;}
+
+.setting {text-align: right; cursor: pointer; color:blue;}
+
+.setList { padding-top: 5px; border-top: 1px dotted #ddd;}

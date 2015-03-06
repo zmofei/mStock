@@ -3,29 +3,65 @@
 
 <head>
     <title>Popup</title>
-    <link href="popup.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link href="popup.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="addbar">
-        <input type="text" id="stockCode" placeholder="股票代码" name="code">
-        <input type="number" placeholder="持有数量" name="count">
-        <input type="number" placeholder="成本" name="cost">
-        <button id="addnew">提交</button>
-        <div class="suggestBar"></div>
+
+    <div class="setting" style="margin-bottom:10px;">
+        <button type="button" class="btn btn-info btn btn-default btn-xs">配置我的股票</button>
     </div>
-    <table valign="middle" id="mainArae">
+
+    <div class="setList" style="display:none;">
+        <div class="input-group" style="margin-bottom:10px;">
+            <span class="input-group-addon">我的剩余资金</span>
+            <input type="text" class="form-control mymoney" value="0"  >
+        </div>
+
+        
+
+        <table class="table stocklist" style="margin-bottom:5px;">
+            <tr>
+                <th>股票</th>
+                <th>持股数量</th>
+                <th>成本价格</th>
+                <th>操作</th>
+            </tr>
+            
+        </table>
+        <div style="text-align:right; margin-bottom:10px;">
+            <button type="button" class="btn btn-xs btn btn-success addNewStocke" style="width:100%;">添加股票</button>
+        </div>
+        
+        <button type="button" class="btn btn-primary btn-lg btn-block btn-danger addover"> 完成操作 </button>
+    </div>
+
+    <div class="addbar" style="display:none;">
+        <input class="form-control" type="text" id="stockCode" placeholder="股票代码" name="code">
+        <div class="suggestBar" style="display:none;"></div>
+    </div>
+
+    <table valign="middle" id="mainArae" class="table" style="display:none;">
         <tr>
             <th>市值</th>
             <th>持有</th>
+            <th>总盈亏</th>
             <th>当日盈亏</th>
             <th>成本/市值</th>
         </tr>
     </table>
-    <div class="action">
-        <a href="#">添加</a><a href="#">修改</a>
+    <div class="nodate">
+        <div style="text-align:center; font-size:40px; padding:40px 0; min-width:250px; border-top:1px dotted #ccc;">你好</div>
+        <div style="color:#999">
+        <span class="visible-xs-block visible-sm-block"> ✔ 欢迎使用mStock。 </span>
+        <span class="visible-xs-block visible-sm-block"> ✔ 当前暂无数据，请点击右上角的“配置我的股票”，开启财富之路。</span>
+        <span class="visible-xs-block visible-sm-block"> ✔ 使用过程中遇到任何问题，请 <a href="http://www.zhuwenlong.com" target="_blank">联系作者</a> 。</span>
+        <span class="visible-xs-block visible-sm-block"> ✔ 如果你是开发者，有bug需要提交或者参与项目，请移步 <a target="_blank" href="https://github.com/zmofei/mStock">github</a> 。</span>
+        </div>
     </div>
+
     <script src="popup.js"></script>
 </body>
 
