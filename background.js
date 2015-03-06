@@ -36,8 +36,13 @@ var ajax = function(obj) {
 function getChange() {
     var stocksInfo = getStockFromLocal();
 
+    var load = false;
+    var time = new Date();
+    if (time.getHours() >= 9 && time.getHours() <= 15 && time.getDay() <= 5 && time.getDay() >= 1) {
+        load = true;
+    };
     // console.log(stocksInfo.idStr);
-    if (stocksInfo.idStr !== '') {
+    if (stocksInfo.idStr !== '' && load) {
         ajax({
             'url': 'http://hq.sinajs.cn/list=' + stocksInfo.idStr,
             'success': function(data) {
@@ -82,7 +87,8 @@ function showIt(data) {
     })
 };
 
+
 getChange();
 setInterval(function() {
     getChange();
-}, 10000)
+}, 60000)
