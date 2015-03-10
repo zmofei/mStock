@@ -41,6 +41,48 @@ var addNewStock = (function() {
 })();
 
 
+var shwoModule = (function() {
+    var modules = {
+        '.globalView': {
+            name: '',
+            tar: document.querySelector('.globalView')
+        },
+        '.setting': {
+            'name': '',
+            'tar': document.querySelector('.setting')
+        },
+        '.setList': {
+            'name': '',
+            'tar': document.querySelector('.setList')
+        },
+        '.addbar': {
+            'name': '',
+            'tar': document.querySelector('.addbar')
+        },
+        '#mainArae': {
+            'name': '',
+            'tar': document.querySelector('#mainArae')
+        },
+        '.nodate': {
+            'name': '',
+            'tar': document.querySelector('.nodate')
+        }
+    }
+    return function(moduleName) {
+        for (var i in modules) {
+            modules[i].tar.style.display = 'none';
+        }
+        if (moduleName instanceof Array) {
+            for (var i in moduleName) {
+                modules[moduleName[i]].tar.style.display = 'block';
+            }
+        } else {
+            modules[moduleName].tar.style.display = 'block';
+        }
+
+    }
+})();
+
 /**
  * [description]
  * @param  {[type]} ) {               return function() {        console.log(this.value)    }})( [description]
@@ -85,13 +127,10 @@ var showData = (function() {
 
         var stocksInfo = getStockFromLocal();
 
-        // console.log(stocksInfo.idStr);
         if (stocksInfo.idStr == '') {
-            mainArae.style.display = "none";
-            nodate.style.display = "block";
+            shwoModule(['.nodate', '.setting']);
         } else {
-            nodate.style.display = "none";
-            mainArae.style.display = "block";
+            shwoModule(['#mainArae', '.globalView', '.setting']);
             ajax({
                 'url': 'http://hq.sinajs.cn/list=' + stocksInfo.idStr,
                 'success': function(data) {
@@ -108,8 +147,8 @@ var showData = (function() {
                         // =
                         var rests = rest[i].replace('"', '').split(',');
                         // retData[rests[0]] = retData[rests[0]] || {};
-                        newObj[ids[i]].price = rests[3];
-                        newObj[ids[i]].yesterday = rests[2];
+                        newObj[ids[i]].price = rests[3] || 0;
+                        newObj[ids[i]].yesterday = rests[2] || 0;
                     }
 
                     showIt(newObj)
@@ -129,6 +168,9 @@ var showData = (function() {
             mainArae.removeChild(trs[i]);
         };
 
+        var todayTotal = 0;
+        var yesterdayTotal = 0;
+        var totalProfit = 0;
         for (var i in data) {
             var theData = data[i]
             var tr = document.createElement('tr');
@@ -136,9 +178,17 @@ var showData = (function() {
             var innerTr = '';
 
             var nameId = theData.name + '<br>' + i;
-            var holdTotal = parseInt(theData.hold) + '<br>' + (theData.hold * theData.price).toFixed(2);
+
+            var todayPrice = (theData.hold * theData.price).toFixed(2);
+            // console.log(theData.hold , theData.price)
+            var yesterdayPrice = (theData.hold * theData.yesterday).toFixed(2);
+
+            var holdTotal = parseInt(theData.hold) + '<br>' + (todayPrice || 0);
             var range = (theData.price - theData.yesterday) / theData.yesterday;
-            var rangePercent = (theData.cost * range * theData.hold).toFixed(2) + '<br>' + (range * 100).toFixed(2) + '%';
+            var todayRange = (theData.cost * range * theData.hold).toFixed(2);
+            // console.log(theData.cost * range  theData.hold)
+
+            var rangePercent = todayRange + '<br>' + (range * 100).toFixed(2) + '%';
             var holePrice = theData.cost + '<br>' + theData.price;
 
             var totalView = (theData.price - theData.cost) * theData.hold;
@@ -149,7 +199,31 @@ var showData = (function() {
 
             mainArae.appendChild(tr);
 
+            todayTotal += Number(todayPrice);
+            yesterdayTotal += Number(yesterdayPrice);
+            totalProfit += Number(totalView);
         }
+
+        var today = document.querySelector('.globalViewToday');
+        var todayVal = today.querySelector('span');
+
+        /**/
+        var todayVin = todayTotal - yesterdayTotal;
+        todayVal.innerHTML = todayVin + ' (' + (todayVin * 100 / yesterdayTotal).toFixed(2) + '%)';
+        if (todayVin > 0) {
+            today.style.color = "red";
+        } else if (todayVin < 0) {
+            today.style.color = "green";
+        }
+        //
+        var cash = Number(localStorage.getItem('mymoney') || 0);
+        var totalMoney = todayTotal + cash;
+        document.querySelector('.OP_total').innerHTML = totalMoney.toFixed(2);
+        document.querySelector('.OP_cash').innerHTML = cash.toFixed(2);
+        //
+        document.querySelector('.OP_stock').innerHTML = todayTotal.toFixed(2);
+        document.querySelector('.OP_totalProfit').innerHTML = totalProfit.toFixed(2);
+
     }
 
     function getStockFromLocal() {
@@ -210,13 +284,13 @@ var sugClick = (function() {
         if (target.tagName == 'P') {
             var code = target.getAttribute('code');
             var name = target.getAttribute('sname');
-            addbar.style.display = 'none';
-            setList.style.display = 'block';
+            shwoModule(['.setList']);
+            // addbar.style.display = 'none';
+            // setList.style.display = 'block';
 
             var tr = document.createElement('tr');
             tr.innerHTML = '<tr><td><span>' + name + '</span><br><span>' + code + '</span></td><td><input type="text" style="width:60px;" value="0" /></td><td><input type="text" style="width:60px; " value="0"></td><td><a href="#">删除</a></td></tr>';
             stocklist.querySelector('tbody').appendChild(tr);
-            // this.style.display = 'none';
         } else {
             return false;
         }
@@ -231,10 +305,7 @@ var setFn = (function() {
     var mymoney = document.querySelector('.mymoney');
     var stocklist = document.querySelector('.stocklist');
     return function() {
-        nodate.style.display = 'none';
-        setList.style.display = 'block';
-        mainArae.style.display = 'none';
-
+        shwoModule('.setList');
 
         var tbody = stocklist.querySelector('tbody');
         var tbodyList = tbody.querySelectorAll('tr');
@@ -257,15 +328,9 @@ var setFn = (function() {
     }
 })();
 
-var addNewStocke = (function() {
-    var setList = document.querySelector('.setList');
-    var addbar = document.querySelector('.addbar');
-    return function() {
-        // console.log('ab')
-        setList.style.display = 'none';
-        addbar.style.display = 'block';
-    }
-})();
+var addNewStocke = function() {
+    shwoModule('.addbar');
+};
 
 var storeAddOver = (function() {
     var mymoney = document.querySelector('.mymoney');
@@ -291,8 +356,9 @@ var storeAddOver = (function() {
 
         }
         showData();
-        mainArae.style.display = 'block';
-        setList.style.display = 'none';
+        shwoModule(['#mainArae', '.setting', '.globalView']);
+        // mainArae.style.display = 'block';
+        // setList.style.display = 'none';
     }
 })();
 

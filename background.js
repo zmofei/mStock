@@ -59,8 +59,8 @@ function getChange() {
                     // =
                     var rests = rest[i].replace('"', '').split(',');
                     // retData[rests[0]] = retData[rests[0]] || {};
-                    newObj[ids[i]].price = rests[3];
-                    newObj[ids[i]].yesterday = rests[2];
+                    newObj[ids[i]].price = rests[3] || 0;
+                    newObj[ids[i]].yesterday = rests[2] || 0;
                 }
 
                 showIt(newObj)
